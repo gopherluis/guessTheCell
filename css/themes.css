@@ -1,0 +1,170 @@
+/* ==========================================================================
+   Guess the Cell — theme palettes
+   Each theme remaps the shared design tokens. Applied via [data-theme] on
+   <html>, written by js/themes.js.
+   ========================================================================== */
+
+:root,
+[data-theme="pastel"] {
+  --ink: #3a3f4a;
+  --ink-soft: #5c6270;
+  --bg: #fafbfd;
+  --surface: #ffffff;
+  --surface-2: #f2f4f8;
+  --mint: #c8e6d0;
+  --mint-strong: #a9d8b8;
+  --lavender: #dcd3f0;
+  --lavender-strong: #b9a8e0;
+  --peach: #fbd9c8;
+  --peach-strong: #e8a87c;
+  --sky: #c9e2f5;
+  --sky-strong: #a9cfea;
+  --blush: #f7d4de;
+  --butter: #f5eac3;
+  --pastel-red: #f5b7b1;
+  --pastel-green: #b5dfc2;
+  --accent: #7fbf95;
+  --accent-ink: #2c6647;
+  --good: #4f9d69;
+  --bad: #c1665f;
+  --card-face: #ffffff;
+  --card-back: #bfe3cc;
+  --shadow: 0 8px 22px rgba(58, 63, 74, 0.09);
+  --shadow-lg: 0 18px 44px rgba(58, 63, 74, 0.18);
+}
+
+[data-theme="midnight"] {
+  --ink: #e9edf7;
+  --ink-soft: #a2aec8;
+  --bg: #101429;
+  --surface: #1a2036;
+  --surface-2: #232a44;
+  --mint: #31406b;
+  --mint-strong: #3d5183;
+  --lavender: #3a3560;
+  --lavender-strong: #6d5fae;
+  --peach: #4a3550;
+  --peach-strong: #7b5487;
+  --sky: #233f5e;
+  --sky-strong: #3a6c9e;
+  --blush: #4a2f47;
+  --butter: #4d4327;
+  --pastel-red: #7a3b45;
+  --pastel-green: #2f5c46;
+  --accent: #7aa2ff;
+  --accent-ink: #0d1730;
+  --good: #6fcf97;
+  --bad: #f08a80;
+  --card-face: #f2f4fa;
+  --card-back: #31406b;
+  --shadow: 0 10px 26px rgba(0, 0, 0, 0.4);
+  --shadow-lg: 0 20px 48px rgba(0, 0, 0, 0.55);
+}
+
+[data-theme="midnight"] .brand-mark,
+[data-theme="midnight"] .rules li::before {
+  color: var(--ink);
+}
+
+[data-theme="midnight"] .btn-primary {
+  color: #0d1730;
+}
+
+[data-theme="midnight"] .option-btn:hover:not(:disabled) {
+  background: var(--sky);
+}
+
+[data-theme="sunset"] {
+  --ink: #4a2f28;
+  --ink-soft: #7c5b50;
+  --bg: #fff7f1;
+  --surface: #fffaf6;
+  --surface-2: #fdeee4;
+  --mint: #ffdcc8;
+  --mint-strong: #ffb088;
+  --lavender: #f7d8e4;
+  --lavender-strong: #f770a8;
+  --peach: #ffe6d6;
+  --peach-strong: #ff8a5b;
+  --sky: #ffe2c4;
+  --sky-strong: #ffb26b;
+  --blush: #ffd6e3;
+  --butter: #ffeec4;
+  --pastel-red: #f7a8a4;
+  --pastel-green: #c9e7b2;
+  --accent: #ff8a5b;
+  --accent-ink: #7a2f13;
+  --good: #4f9d69;
+  --bad: #cf5f56;
+  --card-face: #fffdfb;
+  --card-back: #ffdcc8;
+  --shadow: 0 8px 22px rgba(122, 60, 30, 0.12);
+  --shadow-lg: 0 18px 44px rgba(122, 60, 30, 0.2);
+}
+
+[data-theme="ocean"] {
+  --ink: #153a45;
+  --ink-soft: #43707d;
+  --bg: #f1fafd;
+  --surface: #ffffff;
+  --surface-2: #e5f4f9;
+  --mint: #d7f1fb;
+  --mint-strong: #7ed3ea;
+  --lavender: #dde7fb;
+  --lavender-strong: #8fb2ef;
+  --peach: #ffe6d2;
+  --peach-strong: #f7ab72;
+  --sky: #c9ecf8;
+  --sky-strong: #2eb3d6;
+  --blush: #dceffa;
+  --butter: #fdf4ce;
+  --pastel-red: #f7b6b6;
+  --pastel-green: #a9dfc6;
+  --accent: #2eb3d6;
+  --accent-ink: #0c4e60;
+  --good: #3f9e78;
+  --bad: #c96a63;
+  --card-face: #ffffff;
+  --card-back: #d7f1fb;
+  --shadow: 0 8px 22px rgba(21, 58, 69, 0.12);
+  --shadow-lg: 0 18px 44px rgba(21, 58, 69, 0.2);
+}
+
+[data-theme="forest"] {
+  --ink: #2d3a28;
+  --ink-soft: #5c6b55;
+  --bg: #f6f9f2;
+  --surface: #ffffff;
+  --surface-2: #edf3e6;
+  --mint: #e0ecd4;
+  --mint-strong: #b6d7a8;
+  --lavender: #e8e1f1;
+  --lavender-strong: #b6a7d6;
+  --peach: #f6e3cf;
+  --peach-strong: #d9a066;
+  --sky: #dcebf1;
+  --sky-strong: #8fb8c9;
+  --blush: #f4dfe5;
+  --butter: #f6ecc9;
+  --pastel-red: #eeb1a6;
+  --pastel-green: #b6d7a8;
+  --accent: #7fb069;
+  --accent-ink: #3d5c2c;
+  --good: #5f8f4a;
+  --bad: #bf6559;
+  --card-face: #ffffff;
+  --card-back: #e0ecd4;
+  --shadow: 0 8px 22px rgba(45, 58, 40, 0.12);
+  --shadow-lg: 0 18px 44px rgba(45, 58, 40, 0.2);
+}
+
+/* The illustration SVGs are drawn with dark ink strokes, so the card face
+   stays light in every theme to keep them readable. */
+[data-theme="midnight"] .card-front,
+[data-theme="midnight"] .card-name {
+  color: #2c3244;
+}
+
+[data-theme="midnight"] .card-name {
+  color: #55607a;
+}

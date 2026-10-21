@@ -1,0 +1,347 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="pastel" data-motion="on">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Guess the Cell — Adaptive Cell Biology Quiz Game</title>
+    <meta
+      name="description"
+      content="Flip cards, learn cell organelles and let a fuzzy logic engine adapt the board to the topics you keep missing. Progress is saved in your browser."
+    />
+    <link rel="stylesheet" href="css/styles.css" />
+    <link rel="stylesheet" href="css/themes.css" />
+  </head>
+  <body class="landing-page">
+    <header class="site-header">
+      <a class="brand" href="index.html">
+        <span class="brand-mark" aria-hidden="true">
+          <svg viewBox="0 0 48 48" xmlns="http://www.w3.org/2000/svg">
+            <circle cx="24" cy="24" r="16" fill="#BFE3CC" stroke="#3A3F4A" stroke-width="2" />
+            <circle cx="24" cy="24" r="6" fill="#8FC7A0" stroke="#3A3F4A" stroke-width="1.5" />
+            <circle cx="31" cy="17" r="2" fill="#3A3F4A" />
+            <circle cx="17" cy="30" r="1.6" fill="#3A3F4A" />
+          </svg>
+        </span>
+        Guess the Cell
+      </a>
+      <div class="header-tools">
+        <div class="theme-menu" data-theme-menu></div>
+      </div>
+    </header>
+
+    <div class="banner is-hidden" id="resume-banner">
+      <div class="banner-text">
+        A run is still open in this browser.
+        <small>Pick up where you left off, or throw it away and start fresh.</small>
+      </div>
+      <div class="chip-row">
+        <button type="button" class="btn btn-primary btn-sm" id="resume-start">Resume run</button>
+        <button type="button" class="btn btn-ghost btn-sm" id="resume-discard">Discard</button>
+      </div>
+    </div>
+
+    <main>
+      <section class="hero">
+        <div class="hero-text">
+          <p class="eyebrow">Adaptive biology memory game</p>
+          <h1>Guess the <span class="accent-word">Cell</span></h1>
+          <p class="tagline">
+            Flip the cards, find the two showing the same organelle, then prove you know it
+            by answering the question that follows. A fuzzy logic engine reads every run you
+            play and rebuilds the next board around the parts you keep missing.
+          </p>
+          <div class="hero-actions">
+            <button type="button" class="btn btn-primary" id="start-btn">Start game</button>
+            <span class="hero-note">Progress is stored in this browser — no account needed.</span>
+          </div>
+          <ul class="rules">
+            <li data-num="1">Flip two cards and find the pair showing the same organelle.</li>
+            <li data-num="2">Each pair found opens a multiple-choice question on that structure.</li>
+            <li data-num="3">A wrong answer costs points and reshuffles every open card.</li>
+            <li data-num="4">Weak topics come back with an extra pair — strong ones get a harder question.</li>
+            <li data-num="5">Clear the board to finish. Fast and accurate scores higher.</li>
+          </ul>
+        </div>
+
+        <div class="hero-art" aria-hidden="true">
+          <svg class="cell-svg" viewBox="0 0 300 240" xmlns="http://www.w3.org/2000/svg">
+            <ellipse cx="150" cy="120" rx="135" ry="95" fill="#C9E2F5" stroke="#3A3F4A" stroke-width="3" />
+            <circle cx="120" cy="100" r="38" fill="#DCD3F0" stroke="#3A3F4A" stroke-width="2.5" />
+            <circle cx="110" cy="92" r="13" fill="#B9A8E0" stroke="#3A3F4A" stroke-width="2" />
+            <ellipse cx="210" cy="80" rx="34" ry="19" fill="#FBD9C8" stroke="#3A3F4A" stroke-width="2.5" />
+            <path
+              d="M186 80 C192 66 198 94 205 80 C210 68 216 92 224 80 C228 70 234 88 240 80"
+              fill="none"
+              stroke="#E8A87C"
+              stroke-width="2.5"
+              stroke-linecap="round"
+            />
+            <ellipse cx="200" cy="165" rx="30" ry="17" fill="#C8E6D0" stroke="#3A3F4A" stroke-width="2.5" />
+            <ellipse cx="192" cy="158" rx="8" ry="3" fill="#8FC7A0" stroke="#3A3F4A" stroke-width="1.4" />
+            <ellipse cx="192" cy="164.5" rx="8" ry="3" fill="#8FC7A0" stroke="#3A3F4A" stroke-width="1.4" />
+            <ellipse cx="192" cy="171" rx="8" ry="3" fill="#8FC7A0" stroke="#3A3F4A" stroke-width="1.4" />
+            <circle cx="90" cy="160" r="16" fill="#F5EAC3" stroke="#3A3F4A" stroke-width="2.5" />
+            <circle cx="85" cy="155" r="3.5" fill="#E8D98F" stroke="#3A3F4A" stroke-width="1.3" />
+            <circle cx="95" cy="163" r="3" fill="#E8D98F" stroke="#3A3F4A" stroke-width="1.3" />
+            <circle cx="60" cy="105" r="3" fill="#3A3F4A" />
+            <circle cx="250" cy="130" r="3" fill="#3A3F4A" />
+            <circle cx="150" cy="190" r="3" fill="#3A3F4A" />
+          </svg>
+
+          <div class="floating-organelle fo-1">
+            <svg viewBox="0 0 120 90" xmlns="http://www.w3.org/2000/svg">
+              <circle cx="60" cy="45" r="33" fill="#DCD3F0" stroke="#3A3F4A" stroke-width="2.5" />
+              <circle cx="52" cy="40" r="11" fill="#B9A8E0" stroke="#3A3F4A" stroke-width="2" />
+            </svg>
+            <span>Nucleus</span>
+          </div>
+          <div class="floating-organelle fo-2">
+            <svg viewBox="0 0 120 90" xmlns="http://www.w3.org/2000/svg">
+              <ellipse cx="60" cy="45" rx="44" ry="25" fill="#FBD9C8" stroke="#3A3F4A" stroke-width="2.5" />
+              <path
+                d="M28 45 C34 26 42 64 50 45 C56 30 62 60 70 45 C76 32 84 58 92 45"
+                fill="none"
+                stroke="#E8A87C"
+                stroke-width="3"
+                stroke-linecap="round"
+              />
+            </svg>
+            <span>Mitochondria</span>
+          </div>
+          <div class="floating-organelle fo-3">
+            <svg viewBox="0 0 120 90" xmlns="http://www.w3.org/2000/svg">
+              <ellipse cx="60" cy="45" rx="44" ry="26" fill="#C8E6D0" stroke="#3A3F4A" stroke-width="2.5" />
+              <ellipse cx="38" cy="41" rx="10" ry="3.5" fill="#8FC7A0" stroke="#3A3F4A" stroke-width="1.5" />
+              <ellipse cx="70" cy="42.5" rx="9" ry="3.2" fill="#8FC7A0" stroke="#3A3F4A" stroke-width="1.5" />
+            </svg>
+            <span>Chloroplast</span>
+          </div>
+          <div class="floating-organelle fo-4">
+            <svg viewBox="0 0 120 90" xmlns="http://www.w3.org/2000/svg">
+              <circle cx="60" cy="45" r="30" fill="#F5EAC3" stroke="#3A3F4A" stroke-width="2.5" />
+              <circle cx="50" cy="36" r="4.5" fill="#E8D98F" stroke="#3A3F4A" stroke-width="1.5" />
+              <circle cx="68" cy="34" r="3.2" fill="#E8D98F" stroke="#3A3F4A" stroke-width="1.5" />
+            </svg>
+            <span>Lysosome</span>
+          </div>
+        </div>
+      </section>
+
+      <section class="section section-alt" id="options">
+        <div class="section-head">
+          <h2 class="section-title">Choose how you want to play</h2>
+          <p class="section-sub">
+            Pick a mode, tune the board, then press start. Every choice is remembered by this
+            browser and used to plan your next run.
+          </p>
+        </div>
+
+        <div class="panel">
+          <h3 class="panel-title">Game mode <span class="hint-tag">pick one</span></h3>
+          <div class="option-grid" id="mode-list" role="group" aria-label="Game mode"></div>
+        </div>
+
+        <div class="options-columns" style="margin-top: 1rem">
+          <div class="panel">
+            <h3 class="panel-title">Board &amp; assistance</h3>
+            <div class="control-row">
+              <span class="control-label">
+                Pairs
+                <span class="control-help">How many organelles on the board</span>
+              </span>
+              <input
+                type="range"
+                id="pairs-range"
+                min="4"
+                max="10"
+                step="1"
+                value="8"
+                aria-label="Number of pairs"
+              />
+              <span class="control-value" id="pairs-value">8 pairs</span>
+            </div>
+            <div class="control-row">
+              <label class="control-label" for="opt-sound">
+                Sound effects
+                <span class="control-help">Short synthesised tones</span>
+              </label>
+              <label class="switch">
+                <input type="checkbox" id="opt-sound" />
+                <span class="switch-track"></span>
+              </label>
+            </div>
+            <div class="control-row">
+              <label class="control-label" for="opt-motion">
+                Animations
+                <span class="control-help">Turn off for a calmer board</span>
+              </label>
+              <label class="switch">
+                <input type="checkbox" id="opt-motion" />
+                <span class="switch-track"></span>
+              </label>
+            </div>
+            <div class="control-row">
+              <label class="control-label" for="opt-hints">
+                Hints
+                <span class="control-help">Reveal the first letter, costs a few points</span>
+              </label>
+              <label class="switch">
+                <input type="checkbox" id="opt-hints" />
+                <span class="switch-track"></span>
+              </label>
+            </div>
+            <div class="control-row">
+              <label class="control-label" for="opt-typein">
+                Type-in answers
+                <span class="control-help">Fuzzy matching accepts close spellings</span>
+              </label>
+              <label class="switch">
+                <input type="checkbox" id="opt-typein" />
+                <span class="switch-track"></span>
+              </label>
+            </div>
+          </div>
+
+          <div class="panel">
+            <h3 class="panel-title">Look &amp; feel</h3>
+            <div class="control-row" style="align-items: flex-start; flex-direction: column; gap: 0.6rem">
+              <span class="control-label">
+                Card back
+                <span class="control-help">Pick the design on the hidden cards</span>
+              </span>
+              <div class="chip-row" id="cardback-picker" role="group" aria-label="Card back style"></div>
+            </div>
+            <div class="control-row">
+              <span class="control-label">
+                Theme
+                <span class="control-help">Open the settings gear in the header to switch it</span>
+              </span>
+              <span class="control-value" id="theme-name">Pastel</span>
+            </div>
+            <div class="control-row" style="border-bottom: none">
+              <span class="control-label">
+                Data
+                <span class="control-help">Saved in this browser only</span>
+              </span>
+              <div class="chip-row">
+                <button type="button" class="btn btn-outline btn-sm" id="export-btn">Export</button>
+                <button type="button" class="btn btn-outline btn-sm" id="import-btn">Import</button>
+                <input type="file" id="import-file" accept="application/json" class="is-hidden" />
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="section" id="profile">
+        <div class="section-head">
+          <h2 class="section-title">Your learning profile</h2>
+          <p class="section-sub">
+            This is the memory the fuzzy engine works from. It updates after every answer and
+            shapes the board you get next time.
+          </p>
+        </div>
+
+        <div class="profile-columns">
+          <div class="panel">
+            <h3 class="panel-title">This browser remembers</h3>
+            <div class="stat-grid">
+              <div class="stat-card">
+                <span class="stat-label">Runs played</span>
+                <span class="stat-value" id="stat-games">0</span>
+              </div>
+              <div class="stat-card">
+                <span class="stat-label">Best score</span>
+                <span class="stat-value" id="stat-best-score">—</span>
+              </div>
+              <div class="stat-card">
+                <span class="stat-label">Fastest clear</span>
+                <span class="stat-value" id="stat-best-time">—</span>
+              </div>
+              <div class="stat-card">
+                <span class="stat-label">Best streak</span>
+                <span class="stat-value" id="stat-streak">0</span>
+              </div>
+              <div class="stat-card">
+                <span class="stat-label">Accuracy</span>
+                <span class="stat-value" id="stat-accuracy">—</span>
+              </div>
+              <div class="stat-card">
+                <span class="stat-label">Questions right</span>
+                <span class="stat-value" id="stat-total">0</span>
+              </div>
+            </div>
+            <p class="chart-empty" id="profile-empty">
+              No runs yet. Finish a board and this panel fills in.
+            </p>
+            <div class="profile-actions">
+              <button type="button" class="btn btn-outline btn-sm btn-danger" id="reset-btn">
+                Reset progress
+              </button>
+            </div>
+          </div>
+
+          <div class="panel">
+            <h3 class="panel-title">Topic mastery <span class="hint-tag">fuzzy estimate</span></h3>
+            <ul class="mastery-list" id="mastery-list"></ul>
+            <h3 class="panel-title" style="margin-top: 1.25rem">Score trend</h3>
+            <div id="trend-chart"></div>
+          </div>
+        </div>
+      </section>
+
+      <section class="section section-alt" id="how">
+        <div class="section-head">
+          <h2 class="section-title">How the engine adapts</h2>
+          <p class="section-sub">
+            A small Mamdani fuzzy inference system scores every organelle on five linguistic
+            variables, fires a rule base, then defuzzifies the result into a concrete plan.
+          </p>
+        </div>
+        <div class="option-grid">
+          <div class="panel">
+            <h3 class="panel-title">1 · It reads the last runs</h3>
+            <p class="section-sub">
+              For each structure the engine tracks mastery, how consistent you are, how fast you
+              answer and how long ago you last saw it.
+            </p>
+          </div>
+          <div class="panel">
+            <h3 class="panel-title">2 · Rules fire</h3>
+            <p class="section-sub">
+              "Mastery is poor" plus "answers are erratic" lights up the intense reinforcement
+              set. Confident, recent answers light up the gentle set instead.
+            </p>
+          </div>
+          <div class="panel">
+            <h3 class="panel-title">3 · The board follows</h3>
+            <p class="section-sub">
+              Defuzzified demand decides which organelles appear, which get a second pair, and
+              whether the question is a warm-up, core or challenge.
+            </p>
+          </div>
+          <div class="panel">
+            <h3 class="panel-title">4 · Nothing is lost</h3>
+            <p class="section-sub">
+              Mastery, scores, streaks and the run in progress all live in local storage, so the
+              engine keeps learning between sessions.
+            </p>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <footer class="site-footer">
+      <p>Guess the Cell — a pastel-friendly way to learn cell biology.</p>
+      <p>Built with plain HTML, CSS and JavaScript.</p>
+    </footer>
+
+    <script src="js/data.js"></script>
+    <script src="js/storage.js"></script>
+    <script src="js/fuzzy.js"></script>
+    <script src="js/themes.js"></script>
+    <script src="js/theme-menu.js"></script>
+    <script src="js/audio.js"></script>
+    <script src="js/landing.js"></script>
+  </body>
+</html>

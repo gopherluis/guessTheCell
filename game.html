@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="pastel" data-motion="on">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Game — Guess the Cell</title>
+    <link rel="stylesheet" href="css/styles.css" />
+    <link rel="stylesheet" href="css/themes.css" />
+  </head>
+  <body class="game-page">
+    <header class="hud">
+      <a class="hud-title" href="index.html">Guess the Cell</a>
+      <div class="hud-stats" role="group" aria-label="Game statistics">
+        <div class="stat">
+          <span class="stat-label">Score</span>
+          <span class="stat-value" id="score">0</span>
+        </div>
+        <div class="stat">
+          <span class="stat-label">Time</span>
+          <span class="stat-value" id="timer">00:00</span>
+        </div>
+        <div class="stat">
+          <span class="stat-label">Streak</span>
+          <span class="stat-value" id="streak">0</span>
+        </div>
+        <div class="stat">
+          <span class="stat-label">Attempts</span>
+          <span class="stat-value" id="attempts">0</span>
+        </div>
+        <div class="stat">
+          <span class="stat-label">Errors</span>
+          <span class="stat-value" id="errors">0</span>
+        </div>
+      </div>
+      <div class="hud-actions">
+        <button type="button" class="btn btn-outline btn-sm" id="quit-btn">Quit</button>
+        <div class="theme-menu" data-theme-menu></div>
+      </div>
+    </header>
+
+    <div class="banner is-hidden" id="resume-bar" style="margin-top: 1rem">
+      <div class="banner-text">
+        <span id="resume-text">Restored the run you left open in this browser.</span>
+        <small>Everything is stored locally, so the board is exactly where you stopped.</small>
+      </div>
+      <div class="chip-row">
+        <button type="button" class="btn btn-primary btn-sm" id="resume-btn">Start fresh board</button>
+        <button type="button" class="btn btn-ghost btn-sm is-hidden" id="resume-discard-btn">Discard</button>
+      </div>
+    </div>
+
+    <main class="game-main">
+      <div class="plan-strip" id="plan-panel">
+        <span class="plan-label">Engine plan</span>
+        <span class="plan-chip plan-demand" id="plan-demand" data-level="moderate">moderate</span>
+        <span class="plan-chip" id="plan-boost">no extra pairs</span>
+        <span class="plan-chip">Focus: <span id="plan-focus">—</span></span>
+        <button
+          type="button"
+          class="btn btn-ghost btn-sm plan-toggle"
+          id="plan-toggle"
+          aria-expanded="false"
+          aria-controls="plan-detail"
+        >
+          Why?
+        </button>
+        <div class="plan-detail" id="plan-detail"></div>
+      </div>
+
+      <p class="hint">
+        Find the two cards showing the same organelle, then answer the question to lock the pair
+        in. A wrong answer reshuffles every card that is not locked yet.
+      </p>
+
+      <div id="board" class="board" aria-label="Memory board"></div>
+    </main>
+
+    <div
+      id="quiz-overlay"
+      class="overlay"
+      aria-hidden="true"
+      role="dialog"
+      aria-modal="true"
+      aria-labelledby="quiz-name"
+    >
+      <div class="modal">
+        <div class="modal-organelle">
+          <div class="modal-illustration" id="quiz-illustration" aria-hidden="true"></div>
+          <h2 id="quiz-name"></h2>
+          <span class="tier-badge" id="quiz-tier" data-tier="medium">Core</span>
+        </div>
+        <p class="modal-question" id="quiz-question"></p>
+        <div class="options" id="quiz-options"></div>
+        <p class="modal-feedback" id="quiz-feedback"></p>
+        <div class="hint-box is-hidden" id="quiz-hint">
+          <span id="quiz-hint-text"></span>
+        </div>
+        <form class="typein" id="typein-form">
+          <input
+            type="text"
+            id="typein-input"
+            placeholder="Or type your answer…"
+            autocomplete="off"
+            aria-label="Type your answer"
+          />
+          <button type="submit" class="btn btn-outline btn-sm">Check</button>
+        </form>
+        <p class="typein-result" id="typein-result"></p>
+        <div class="chip-row" style="justify-content: center; margin-bottom: 0.75rem">
+          <button type="button" class="btn btn-ghost btn-sm" id="quiz-hint-btn">Use a hint (−12)</button>
+        </div>
+        <button type="button" class="btn btn-primary is-hidden" id="quiz-continue" disabled>
+          Continue
+        </button>
+      </div>
+    </div>
+
+    <div
+      id="results-overlay"
+      class="overlay"
+      aria-hidden="true"
+      role="dialog"
+      aria-modal="true"
+      aria-labelledby="results-title"
+    >
+      <div class="modal">
+        <h2 id="results-title">Board cleared!</h2>
+        <p class="modal-subtitle" id="results-subtitle">Every organelle pair is locked.</p>
+        <ul class="results-list">
+          <li><span>Score</span><strong id="result-score">0</strong></li>
+          <li><span>Correct questions</span><strong id="result-correct">0 / 0</strong></li>
+          <li><span>Attempts</span><strong id="result-attempts">0</strong></li>
+          <li><span>Errors</span><strong id="result-errors">0</strong></li>
+          <li><span>Best streak</span><strong id="result-streak">0</strong></li>
+          <li><span>Time</span><strong id="result-time">00:00</strong></li>
+        </ul>
+
+        <p class="result-insight" id="result-insight"></p>
+
+        <div class="result-block">
+          <h3>Mastery after this run</h3>
+          <ul class="mastery-list" id="result-mastery"></ul>
+        </div>
+
+        <div class="result-block">
+          <h3>Review next</h3>
+          <ul class="mastery-list is-review" id="result-review"></ul>
+        </div>
+
+        <div class="modal-actions">
+          <button type="button" class="btn btn-primary" id="replay-btn">Play again</button>
+          <button type="button" class="btn btn-outline" id="results-quit-btn">Change options</button>
+        </div>
+      </div>
+    </div>
+
+    <script src="js/data.js"></script>
+    <script src="js/storage.js"></script>
+    <script src="js/fuzzy.js"></script>
+    <script src="js/themes.js"></script>
+    <script src="js/theme-menu.js"></script>
+    <script src="js/audio.js"></script>
+    <script src="js/game.js"></script>
+  </body>
+</html>
